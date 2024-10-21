@@ -3,71 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image and Text Upload</title>    
+    <title>Full-Screen Image with Audio</title>    
     <style>
         body {
+            margin: 0;
+            padding: 0;
             background-color: #181818;
             font-family: Arial, sans-serif;
             color: #f0f0f0;
-            margin: 0;
-            padding: 0;
+            overflow: hidden;
         }
 
+        .fullscreen-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Screenshot_20241022_024021.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -1; /* Ensures the image stays in the background */
+        }
+
+        /* Ensures the container and any other content appear over the background */
         .container {
-            width: 80%;
-            margin: 50px auto;
-            text-align: center;
-            background-color: #252525;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-
-        h1 {
-            color: #ffffff;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-
-        .image-upload {
-            margin-bottom: 20px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-            border: 2px solid #333;
-            border-radius: 8px;
-        }
-
-        .text-content { 
-            font-size: 1.2em; 
-            line-height: 1.6; 
-            background-color: #333; 
-            padding: 20px; 
-            border-radius: 8px; 
-            margin-bottom: 20px;
-        } 
     </style>
 </head>
 <body>
+    <!-- Audio plays in the background -->
     <audio id="backgroundMusic" autoplay loop>
         <source src="spotifydown.com - Alone.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+    
+    <!-- Fullscreen image background -->
+    <div class="fullscreen-image"></div>
+
+    <!-- Any other content can go here -->
     <div class="container">
-        <div class="image-upload">
-            <!-- Image file specified -->
-            <img src="Screenshot_20241022_024021.jpg" alt="Screenshot_20241022_024021">
-        </div>
+        <!-- You can add content here if needed -->
     </div>
+
     <script>
         // Try to play the audio when the page loads
         window.addEventListener('load', function() {
             var audio = document.getElementById('backgroundMusic');
             audio.play().catch(function(error) {
-                // Autoplay was prevented, the user needs to interact with the page
                 console.log("Autoplay was prevented. User interaction is required to start the audio.");
             });
         });
