@@ -14,7 +14,7 @@
         }
 
         .container {
-            width: fill;
+            width: 100%;
             margin: auto;
             text-align: center;
             background-color: #000000;
@@ -41,28 +41,55 @@
             border-radius: 8px;
         }
 
+        /* Styles for the Play Button */
+        #playButton {
+            display: none;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
+    <!-- Audio element -->
     <audio id="backgroundMusic" autoplay loop>
         <source src="spotifydown.com - Alone.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+
     <div class="container">
         <div class="image-upload">
             <!-- Image file specified -->
             <img src="Screenshot_20241023_001811.jpg" alt="Screenshot_20241023_001811.jpg">
         </div>
+        <!-- Play button for browsers that block autoplay -->
+        <button id="playButton" onclick="playAudio()">Play Audio</button>
     </div>
+
     <script>
         // Try to play the audio when the page loads
         window.addEventListener('load', function() {
             var audio = document.getElementById('backgroundMusic');
+            var playButton = document.getElementById('playButton');
+
             audio.play().catch(function(error) {
-                // Autoplay was prevented, the user needs to interact with the page
+                // Autoplay was prevented, show the play button
+                playButton.style.display = 'block';
                 console.log("Autoplay was prevented. User interaction is required to start the audio.");
             });
         });
+
+        // Function to play audio when the button is clicked
+        function playAudio() {
+            var audio = document.getElementById('backgroundMusic');
+            audio.play();
+            document.getElementById('playButton').style.display = 'none'; // Hide the button once clicked
+        }
     </script>
 </body>
 </html>
